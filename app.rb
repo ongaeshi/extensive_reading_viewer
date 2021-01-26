@@ -1,3 +1,5 @@
+require "bundler/setup"
+Bundler.require
 require 'open-uri'
 require 'sinatra'
 require "sinatra/reloader" if development?
