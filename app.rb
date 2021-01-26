@@ -33,7 +33,7 @@ class Reading
 end
 
 def parse_text(src)
-  # 行頭の#はコメント扱いにしてスキップ
   src = src.split("\n")[1..-1]
+  src.delete_if {|e| e =~ /^#/}
   src.map {|e| Reading.new(e) }
 end
