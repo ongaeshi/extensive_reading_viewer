@@ -2,7 +2,7 @@ require "bundler/setup"
 Bundler.require
 require 'open-uri'
 # require 'sinatra'
-require "sinatra/reloader" if development?
+# require "sinatra/reloader" if development?
 
 get '/' do
   text = get_text("https://scrapbox.io/api/pages/ongaeshi/extensive_reading/text")
