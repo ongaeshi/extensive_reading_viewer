@@ -6,11 +6,19 @@ get '/' do
   text = get_text("https://scrapbox.io/api/pages/ongaeshi/extensive_reading/text")
   readings = parse_text(text)
   total = readings.reduce(0) {|r, i| r + i.word_count}
+
   unfinished = readings.find_all {|e| e.unfinish? }
+  sort_by_date = readings.find_all {|e| e.finish_date != nil }.sort_by {|e| e.finish_date }
+  start_date = sort_by_date.first.finish_date.strftime("%Y/%m/%d")
+  end_date = sort_by_date.last.finish_date.strftime("%Y/%m/%d")
+
+  days = (sort_by_date.last.finish_date - sort_by_date.first.finish_date) / 60 / 60 / 24
+  words_per_day = (total / days).to_i
 
 <<EOS
-#{total} words.<br>
-#{readings.count} readings. (#{unfinished.count} unfinished)<br>
+#{total} words<br>
+#{readings.count} readings (#{unfinished.count} unfinished)<br>
+#{start_date}-#{end_date} (#{words_per_day} words/day) <br> 
 EOS
 end
 
