@@ -26,13 +26,12 @@ class Reading
   def initialize(line)
     data = line.split(" ")
     @name = data[0..-3].join(" ")
-    @finish_date = data[-1]
+    @finish_date = Time.parse(data[-1]) rescue nil
     @word_count = unfinish? ? 0 : data[-2].to_i
-    # TODO: DateTimeにパース
   end
 
   def unfinish?
-    @finish_date == "??"
+    @finish_date.nil?
   end
 end
 
