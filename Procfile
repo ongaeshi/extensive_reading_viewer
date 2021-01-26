@@ -1,2 +1,2 @@
-dev: bundle exec rackup -o 0 -p 8080
-web: APP_ENV=production rackup -p "$PORT"
+dev: bundle exec rackup
+web: APP_ENV=production bundle exec rackup -p "$PORT"

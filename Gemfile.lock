@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    foreman (0.87.2)
     multi_json (1.15.0)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
@@ -30,8 +31,8 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  foreman
   puma
-  rack
   sinatra
   sinatra-reloader
 
