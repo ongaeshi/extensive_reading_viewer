@@ -6,10 +6,11 @@ get '/' do
   text = get_text("https://scrapbox.io/api/pages/ongaeshi/extensive_reading/text")
   readings = parse_text(text)
   total = readings.reduce(0) {|r, i| r + i.word_count}
+  unfinished = readings.find_all {|e| e.unfinish? }
 
 <<EOS
 #{total} words.<br>
-#{readings.count} readings.<br>
+#{readings.count} readings. (#{unfinished.count} unfinished)<br>
 EOS
 end
 
@@ -25,10 +26,13 @@ class Reading
   def initialize(line)
     data = line.split(" ")
     @name = data[0..-3].join(" ")
-    @word_count = data[-2].to_i
-    @finish_date = data[-1]  
+    @finish_date = data[-1]
+    @word_count = unfinish? ? 0 : data[-2].to_i
     # TODO: DateTimeにパース
-    # TODO: ??のときは未読扱いにする
+  end
+
+  def unfinish?
+    @finish_date == "??"
   end
 end
 
